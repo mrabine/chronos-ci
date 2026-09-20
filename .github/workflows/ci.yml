@@ -16,6 +16,3 @@ jobs:
 
     permissions:
       contents: read
-
-    secrets:
-      DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
