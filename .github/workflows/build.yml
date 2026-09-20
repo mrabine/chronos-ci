@@ -9,7 +9,7 @@ on:
 
     secrets:
       DOCKERHUB_USER:
-        required: true
+        required: false
       DOCKERHUB_TOKEN:
         required: false
 
@@ -48,7 +48,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ secrets.DOCKERHUB_USER }}/chronos-ci
+          images: joinframework/chronos-ci
           tags: |
             type=ref,event=branch
             type=sha
@@ -62,5 +62,5 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USER }}/chronos-ci:buildcache
-          cache-to: ${{ inputs.deploy && format('type=registry,ref={0}/chronos-ci:buildcache,mode=max', secrets.DOCKERHUB_USER) || '' }}
+          cache-from: type=registry,ref=joinframework/chronos-ci:buildcache
+          cache-to: ${{ inputs.deploy && 'type=registry,ref=joinframework/chronos-ci:buildcache,mode=max' || '' }}
